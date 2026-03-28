@@ -6,15 +6,15 @@ Interactive Bridge Simulation for an ideal truss bridge, with complete force ana
 title: Flowchart
 ---
 flowchart TD
-manualIn@{shape: manual-input,lable:"User Inputed Bridge Dimensions"}
-display@{shape:stadium, label:"Display Bridge"}
-GUI@{shape:rect,label:"GUI"}
-FDIMS@{shape:lean-r,label:"Formated Dimensions"}
-IV@{shape:rect,label:"Input Vectorizer"}
-M@{shape:lean-r,label:"Matrices: C,Sx,Sy,..."}
-FE@{shape:rect,label:"Force Estimation"}
-CE@{shape:rect,label:"Cost Estimation"}
-FORCE@{shape:stadium,label:"Displayed Forces: likely heatmap"}
+manualIn@{ shape: manual-input, label: "User Inputed Bridge Dimensions"}
+display@{ shape: stadium, label: "Display Bridge"}
+GUI@{ shape: rect, label: "GUI"}
+FDIMS@{ shape: lean-r, label: "Formated Dimensions"}
+IV@{ shape: rect, label: "Input Vectorizer"}
+M@{ shape: lean-r, label: "Matrices: C,Sx,Sy,..."}
+FE@{ shape: rect, label: "Force Estimation"}
+CE@{ shape: rect, label: "Cost Estimation"}
+FORCE@{ shape: stadium, label: "Displayed Forces: likely heatmap"}
 
 manualIn --> GUI
 GUI --> display
