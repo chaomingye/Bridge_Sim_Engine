@@ -2,10 +2,16 @@
 Interactive Bridge Simulation for an ideal truss bridge, with complete force analysis, cost estimation, and GUI
 
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+---
+title: Flowchart
+---
+flowchart TD
+manualIn["User Inputed Bridge Dimensions"]
+display["Display Bridge"]
+GUI["GUG"]
+
+manualIN --> GUI
+GUI --> display
+
 ```
 
