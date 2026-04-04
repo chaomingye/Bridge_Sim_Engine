@@ -1,35 +1,35 @@
-function varargout = GUI(varargin)
-%GUI MATLAB code file for GUI.fig
-%      GUI, by itself, creates a new GUI or raises the existing
+function varargout = gui_rename(varargin)
+%gui_rename MATLAB code file for gui_rename.fig
+%      gui_rename, by itself, creates a new gui_rename or raises the existing
 %      singleton*.
 %
-%      H = GUI returns the handle to a new GUI or the handle to
+%      H = gui_rename returns the handle to a new gui_rename or the handle to
 %      the existing singleton*.
 %
-%      GUI('Property','Value',...) creates a new GUI using the
+%      gui_rename('Property','Value',...) creates a new gui_rename using the
 %      given property value pairs. Unrecognized properties are passed via
-%      varargin to GUI_OpeningFcn.  This calling syntax produces a
+%      varargin to gui_rename_OpeningFcn.  This calling syntax produces a
 %      warning when there is an existing singleton*.
 %
-%      GUI('CALLBACK') and GUI('CALLBACK',hObject,...) call the
-%      local function named CALLBACK in GUI.M with the given input
+%      gui_rename('CALLBACK') and gui_rename('CALLBACK',hObject,...) call the
+%      local function named CALLBACK in gui_rename.M with the given input
 %      arguments.
 %
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
+%      *See gui_rename Options on GUIDE's Tools menu.  Choose "gui_rename allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help GUI
+% Edit the above text to modify the response to help gui_rename
 
-% Last Modified by GUIDE v2.5 03-Apr-2026 22:10:01
+% Last Modified by GUIDE v2.5 04-Apr-2026 18:02:58
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @GUI_OpeningFcn, ...
-                   'gui_OutputFcn',  @GUI_OutputFcn, ...
+                   'gui_OpeningFcn', @gui_rename_OpeningFcn, ...
+                   'gui_OutputFcn',  @gui_rename_OutputFcn, ...
                    'gui_LayoutFcn',  [], ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,8 +44,8 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before GUI is made visible.
-function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before gui_rename is made visible.
+function gui_rename_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -53,18 +53,26 @@ function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   unrecognized PropertyName/PropertyValue pairs from the
 %            command line (see VARARGIN)
 
-% Choose default command line output for GUI
+% Choose default command line output for gui_rename
 handles.output = hObject;
+
+% Load table data on startup if file exists
+    savePath = fullfile(fileparts(which('gui_rename.m')), 'processing', 'dim_table.mat');
+    if isfile(savePath)
+        loaded = load(savePath);
+        set(handles.posTable, 'Data', loaded.tableData);
+        set(handles.posTable, 'ColumnName', loaded.columnNames);
+    end
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes GUI wait for user response (see UIRESUME)
+% UIWAIT makes gui_rename wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = GUI_OutputFcn(hObject, eventdata, handles)
+function varargout = gui_rename_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -105,7 +113,11 @@ tableData = get(handles.posTable,'Data');
 columnNames = get(handles.posTable,'ColumnName');
 
 % save table to file
-savePath = fullfile(fileparts(which('GUI.m')),'processing', 'dim_table.mat');
+savePath = fullfile(fileparts(which('gui_rename.m')),'processing', 'dim_table.mat');
 save(savePath, 'tableData', 'columnNames');
 
 msgbox(['Data saved to: ' savePath], 'Save Successful');
+
+addpath(genpath('processing'));
+bridgePlotter(handles.axes1);
+drawnow;
